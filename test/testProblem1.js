@@ -18,4 +18,4 @@ function createAndDestroyJSON(FILE_PATH, DATASET) {
     });
 }
 
-problem1("JSONFilesDirectory", createAndDestroyJSON, 1000);
+problem1("JSONFilesDirectory", createAndDestroyJSON, 10);
