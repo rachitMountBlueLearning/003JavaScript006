@@ -8,72 +8,23 @@
 //     5. Read the contents of filenames.txt and delete all the new files that are mentioned in that list simultaneously.
 // 
 
-const FS = require('fs');
+const FS = require('fs').promises;
 
 module.exports.problem2 = () => {
-    FS.readFile(__dirname + '/data/lipsum.txt', 'utf8', (error, data) => {
-        if(error) {
-            console.log(error);
-        } else {
-            FS.writeFile(__dirname + '/data/NEW_FILE.txt', data.toUpperCase(), 'utf8', (error) => {
-                if(error) {
-                    console.log(error);
-                } else {
-                    FS.writeFile(__dirname + '/data/filenames.txt', 'NEW_FILE.txt', (error) => {
-                        if(error) {
-                            console.log(error);
-                        }
-                    });
-                    FS.readFile(__dirname + '/data/NEW_FILE.txt', 'utf8', (error, data) => {
-                        if(error) {
-                            console.log(error);
-                        } else {
-                            FS.writeFile(__dirname + '/data/new_file.txt', data.split('.').join('.\n'), (error) => {
-                                if(error) {
-                                    console.log(error);
-                                } else {
-                                    FS.appendFile(__dirname + '/data/filenames.txt', '\nnew_file.txt', (error) => {
-                                        if(error) {
-                                            console.log(error);
-                                        }
-                                    });
-                                    FS.readFile(__dirname + '/data/new_file.txt', 'utf8', (error, data) => {
-                                        if(error) {
-                                            console.log(error);
-                                        } else {
-                                            FS.writeFile(__dirname + '/data/file_new.txt', data.split('\n').sort((stringA, stringB) => stringA.localeCompare(stringB)).join(' '), (error) => {
-                                                if(error) {
-                                                    console.log(error);
-                                                }
-                                            });
-                                            FS.appendFile(__dirname + '/data/filenames.txt', '\nfile_new.txt', (error) => {
-                                                if(error) {
-                                                    console.log(error);
-                                                } else {
-                                                    FS.readFile(__dirname + '/data/filenames.txt', 'utf8', (error, data) => {
-                                                        if(error) {
-                                                            console.log(error);
-                                                        } else {
-                                                            data = data.split('\n');
-                                                            for(fileIndex = 0; fileIndex < data.length; fileIndex += 1) {
-                                                                FS.unlink(__dirname + `/data/${data[fileIndex]}`, (error) => {
-                                                                    if(error) {
-                                                                        console.log(error);
-                                                                    }
-                                                                });
-                                                            }
-                                                        }
-                                                    });
-                                                }
-                                            });
-                                        }
-                                    });
-                                }
-                            });
-                        }
-                    });
-                }
-            });
-        }
-    });
+    FS.readFile(__dirname + '/data/lipsum.txt', 'utf8')
+        .then((data) => FS.writeFile(__dirname + '/data/NEW_FILE.txt', data.toUpperCase(), 'utf8'))
+        .then(() => FS.writeFile(__dirname + '/data/filenames.txt', 'NEW_FILE.txt', 'utf8'))
+        .then(() => FS.readFile(__dirname + '/data/NEW_FILE.txt', 'utf8'))
+        .then((data) => FS.writeFile(__dirname + '/data/new_file.txt', data.toLowerCase().split('. ').join('.\n'), 'utf8'))
+        .then(() => FS.appendFile(__dirname + '/data/filenames.txt', '\nnew_file.txt', 'utf8'))
+        .then(() => FS.readFile(__dirname + '/data/new_file.txt', 'utf8'))
+        .then((data) => FS.writeFile(__dirname + '/data/file_new.txt', data.split('\n').sort((stringA, stringB) => stringA.localeCompare(stringB)).join('\n'), 'utf8'))
+        .then(() => FS.appendFile(__dirname + '/data/filenames.txt', '\nfile_new.txt', 'utf8'))
+        .then(() => FS.readFile(__dirname + '/data/filenames.txt', 'utf8'))
+        .then((data) => {
+            const FILE_NAMES = data.split('\n');
+            return Promise.all(FILE_NAMES.map(async (FILE_NAME) => await FS.unlink(__dirname + `/data/${FILE_NAME}`)));
+        })
+        .then(() => FS.unlink(__dirname + '/data/filenames.txt'))
+        .catch((error) => console.log(error));
 }
