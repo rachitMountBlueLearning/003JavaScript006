@@ -28,7 +28,7 @@ module.exports.problem2 = () => {
                         if(error) {
                             console.log(error);
                         } else {
-                            FS.writeFile(__dirname + '/data/new_file.txt', data.split('.').join('.\n'), (error) => {
+                            FS.writeFile(__dirname + '/data/new_file.txt', data.toLowerCase().split('. ').join('.\n'), (error) => {
                                 if(error) {
                                     console.log(error);
                                 } else {
