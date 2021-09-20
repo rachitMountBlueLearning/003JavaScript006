@@ -19,7 +19,7 @@ module.exports.problem2 = () => {
                 if(error) {
                     console.log(error);
                 } else {
-                    FS.writeFile(__dirname + '/data/filesList.txt', 'NEW_FILE.txt', (error) => {
+                    FS.writeFile(__dirname + '/data/filenames.txt', 'NEW_FILE.txt', (error) => {
                         if(error) {
                             console.log(error);
                         }
@@ -32,7 +32,7 @@ module.exports.problem2 = () => {
                                 if(error) {
                                     console.log(error);
                                 } else {
-                                    FS.appendFile(__dirname + '/data/filesList.txt', '\nnew_file.txt', (error) => {
+                                    FS.appendFile(__dirname + '/data/filenames.txt', '\nnew_file.txt', (error) => {
                                         if(error) {
                                             console.log(error);
                                         }
@@ -46,11 +46,11 @@ module.exports.problem2 = () => {
                                                     console.log(error);
                                                 }
                                             });
-                                            FS.appendFile(__dirname + '/data/filesList.txt', '\nfile_new.txt', (error) => {
+                                            FS.appendFile(__dirname + '/data/filenames.txt', '\nfile_new.txt', (error) => {
                                                 if(error) {
                                                     console.log(error);
                                                 } else {
-                                                    FS.readFile(__dirname + '/data/filesList.txt', 'utf8', (error, data) => {
+                                                    FS.readFile(__dirname + '/data/filenames.txt', 'utf8', (error, data) => {
                                                         if(error) {
                                                             console.log(error);
                                                         } else {

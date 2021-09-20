@@ -1,0 +1,3 @@
+NEW_FILE.txt
+new_file.txt
+file_new.txt
