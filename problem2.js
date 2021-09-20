@@ -12,13 +12,13 @@ const FS = require('fs').promises;
 
 module.exports.problem2 = () => {
     FS.readFile(__dirname + '/data/lipsum.txt', 'utf8')
-        .then((data) => FS.writeFile(__dirname + '/data/NEW_FILE.txt', data.toUpperCase(), 'utf8'))
-        .then(() => FS.writeFile(__dirname + '/data/filenames.txt', 'NEW_FILE.txt', 'utf8'))
+        .then((data) => FS.writeFile(__dirname + '/data/NEW_FILE.txt', data.toUpperCase()))
+        .then(() => FS.writeFile(__dirname + '/data/filenames.txt', 'NEW_FILE.txt'))
         .then(() => FS.readFile(__dirname + '/data/NEW_FILE.txt', 'utf8'))
-        .then((data) => FS.writeFile(__dirname + '/data/new_file.txt', data.toLowerCase().split('. ').join('.\n'), 'utf8'))
+        .then((data) => FS.writeFile(__dirname + '/data/new_file.txt', data.toLowerCase().split('. ').join('.\n')))
         .then(() => FS.appendFile(__dirname + '/data/filenames.txt', '\nnew_file.txt', 'utf8'))
         .then(() => FS.readFile(__dirname + '/data/new_file.txt', 'utf8'))
-        .then((data) => FS.writeFile(__dirname + '/data/file_new.txt', data.split('\n').sort((stringA, stringB) => stringA.localeCompare(stringB)).join('\n'), 'utf8'))
+        .then((data) => FS.writeFile(__dirname + '/data/file_new.txt', data.split('\n').sort((stringA, stringB) => stringA.localeCompare(stringB)).join('\n')))
         .then(() => FS.appendFile(__dirname + '/data/filenames.txt', '\nfile_new.txt', 'utf8'))
         .then(() => FS.readFile(__dirname + '/data/filenames.txt', 'utf8'))
         .then((data) => {
