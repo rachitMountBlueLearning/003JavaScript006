@@ -22,7 +22,7 @@ module.exports.problem1 = (DIR_NAME, NUMBER_OF_FILES = 10) => {
     const FILE_NAMES = []
 
     for(dataSetIndex = 0; dataSetIndex < NUMBER_OF_FILES; dataSetIndex += 1){
-        LETTERS_TO_GENERATE = Math.floor(Math.random() * 1000000)
+        const LETTERS_TO_GENERATE = Math.floor(Math.random() * 1000000);
         DATASETS.push(randomDataGenerator(LETTERS_TO_GENERATE));
         FILE_NAMES.push(randomDataGenerator(5));
     }
